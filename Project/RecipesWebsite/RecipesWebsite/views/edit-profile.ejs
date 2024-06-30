@@ -1,0 +1,30 @@
+<%- include('../layout/header.ejs') %>
+
+<div class="container mt-5">
+    <h1>Edit Profile</h1>
+    <form action="/edit-profile" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+        </div>
+        <div class="form-group">
+            <label for="password">New Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Leave blank to keep current password">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+    <hr>
+    <form id="deleteForm" action="/delete-profile" method="POST" onsubmit="return confirmDelete();">
+        <button type="submit" class="btn btn-danger">Delete Profile</button>
+    </form>
+</div>
+
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete your profile? This action cannot be undone.');
+    }
+</script>

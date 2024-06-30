@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Website</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/header.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <link href="/footer.css" rel="stylesheet">
+    <!-- ICONS -->
+    <script src="https://kit.fontawesome.com/fb256de4ec.js" crossorigin="anonymous"></script>
+    <style>
+        .pagination-container {
+            position: relative;
+        }
+        .pagination {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Include Header -->
+    <%- include('../layout/header') %>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <h2 class="text-center pt-5 pb-4"><%= category.name %> Recipes</h2>
+        <!-- Grid Start -->
+        <div class="row">
+            <% recipes.forEach(function(recipe) { %>
+                <div class="col-md-4 mb-4">
+                    <!-- Card Start -->
+                    <div class="card" style="background-color: #A8C686;">
+                        <div class="card-body">
+                            <h5 class="card-title text-center"><%= recipe.title %></h5>
+                            <p class="card-text text-center"><%= recipe.description %></p>
+                            <p class="card-text text-center"><%= recipe.recipe_id %></p>
+                            <div class="text-center">
+                                <a href="/recipes/<%= recipe.recipe_id %>" class="btn btn-primary">View Recipe</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card End -->
+                </div>
+            <% }); %>
+        </div>
+        <!-- Grid End -->
+
+        <!-- Pagination and Back Button Start -->
+        <div class="pagination-container">
+            <a href="/categories" class="btn btn-secondary">Back to Categories</a>
+            <nav aria-label="Page navigation">
+                <ul class="pagination mb-0">
+                    <% if (currentPage > 1) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<%= currentPage - 1 %>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    <% } %>
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                        </li>
+                    <% } %>
+                    <% if (currentPage < totalPages) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<%= currentPage + 1 %>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    <% } %>
+                </ul>
+            </nav>
+        </div>
+        <!-- Pagination and Back Button End -->
+    </div>
+
+    <!-- Include Footer -->
+    <%- include('../layout/footer') %>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

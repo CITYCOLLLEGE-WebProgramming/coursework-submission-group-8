@@ -1,0 +1,32 @@
+<%- include('../layout/header.ejs') %>
+
+<div class="container mt-5">
+    <h1>Edit Recipe</h1>
+    <form action="/edit-recipe/<%= recipe.recipe_id %>" method="POST">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="<%= recipe.title %>" required>
+        </div>
+        <div class="form-group">
+            <label for="image_url">Image URL</label>
+            <input type="url" class="form-control" id="image_url" name="image_url" value="<%= recipe.image_url %>" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required><%= recipe.description %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="ingredients">Ingredients</label>
+            <textarea class="form-control" id="ingredients" name="ingredients" rows="3" required><%= recipe.ingredients %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category" required>
+                <% categories.forEach(function(category) { %>
+                    <option value="<%= category.category_id %>" <%= recipe.category_id === category.category_id ? 'selected' : '' %>><%= category.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
